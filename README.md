@@ -1,6 +1,6 @@
 # DayZ-Mod-Template
 
-A Comprehensive Mod Template for DayZ. Optimized with Workbench for Advanced Scripting and pboProject for Efficient Building.
+ A Comprehensive Mod Template for DayZ. Optimized with Workbench for Advanced Scripting and pboProject for Efficient Building.
 This is my personal template, that I ues for all projects
 
 # Repository Setup
