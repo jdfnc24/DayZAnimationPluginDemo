@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{5E54387D1AD1A501}JDsAnimationDemo/Animations/SVD/JD_SVD_Fire_Empty.anm"
+ Author "desktop-filcs3j"
+ ChangeDate 146550904
+ Configurations {
+  TXAResourceClass PC {
+   SourceFile "JD_SVD_Fire_Empty.txa"
+  }
+  TXAResourceClass XBOX_ONE : PC {
+  }
+  TXAResourceClass PS4 : PC {
+  }
+  TXAResourceClass LINUX : PC {
+  }
+ }
+}
