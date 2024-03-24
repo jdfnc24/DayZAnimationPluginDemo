@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{8D20A8D5E71E6390}JDsAnimationDemo/Animations/SVD/w_JD_SVD_states.anm"
+ Author "desktop-filcs3j"
+ ChangeDate -1547456394
+ Configurations {
+  TXAResourceClass PC {
+   SourceFile "w_JD_SVD_states.txa"
+  }
+  TXAResourceClass XBOX_ONE : PC {
+  }
+  TXAResourceClass PS4 : PC {
+  }
+  TXAResourceClass LINUX : PC {
+  }
+ }
+}

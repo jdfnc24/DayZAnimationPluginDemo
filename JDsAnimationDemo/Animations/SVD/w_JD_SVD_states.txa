@@ -1,0 +1,90 @@
+$animation "w_JD_SVD_states" {
+ #fps 30
+ #numFrames 3
+ $node "Weapon_Bullet" {
+  $keys t q s {
+   $frame 0 1 {
+    #t -0.2856399 0.0013988 -0.0065244
+    #q 0.0 0.0 0.0 1.0
+   }
+   $frame 2 {
+    #t -0.2166956 -0.002368 -0.0012773
+    #q -0.0088338 0.0216613 0.008084 0.9996937
+   }
+  }
+ }
+ $node "Weapon_Trigger" {
+  $keys t q s {
+   $frame 0 2 {
+    #t 0.0 0.0004392 0.0018495
+    #q 0.0 -0.0218144 0.0 0.9997621
+   }
+  }
+ }
+ $node "Weapon_Magazine" {
+  $keys t q s {
+   $frame 0 2 {
+    #t 0.0 0.0004391 0.0018493
+    #q 0.0 0.0 0.0 1.0
+   }
+  }
+ }
+ $node "Weapon_Bolt" {
+  $keys t q s {
+   $frame 0 {
+    #q 0.0 0.0 0.0 1.0
+   }
+   $frame 1 {
+    #t 0.1209994 0.0 0.0
+    #q 0.0 0.0 0.0 1.0
+   }
+   $frame 2 {
+    #t 0.0349989 0.0 0.0
+    #q 0.0 0.0 0.0 1.0
+   }
+  }
+ }
+ $node "Weapon_Bone_05" {
+  $keys t q s {
+   $frame 0 2 {
+    #q -0.9988643 0.0 0.0 0.0476451
+   }
+  }
+ }
+ $node "Weapon_Bone_04" {
+  $keys t q s {
+   $frame 0 2 {
+    #q -0.9988643 0.0 0.0 0.0476451
+   }
+  }
+ }
+ $node "Weapon_Bone_03" {
+  $keys t q s {
+   $frame 0 2 {
+    #q -0.9988644 0.0 0.0 0.0476449
+   }
+  }
+ }
+ $node "Weapon_Bone_02" {
+  $keys t q s {
+   $frame 0 2 {
+    #t 0.0 0.0004392 0.0018495
+    #q 0.0 0.0 0.0 1.0
+   }
+  }
+ }
+ $node "Weapon_Bone_01" {
+  $keys t q s {
+   $frame 0 2 {
+    #q -0.9988643 0.0 0.0 0.0476451
+   }
+  }
+ }
+ $node "Weapon_Bone_06" {
+  $keys t q s {
+   $frame 0 2 {
+    #q -0.9990947 0.0 0.0 0.042543
+   }
+  }
+ }
+}

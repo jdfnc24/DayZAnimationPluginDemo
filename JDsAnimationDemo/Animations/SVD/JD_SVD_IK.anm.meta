@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{A83020497E5B458C}JDsAnimationDemo/Animations/SVD/JD_SVD_IK.anm"
+ Author "desktop-filcs3j"
+ ChangeDate -1681674122
+ Configurations {
+  TXAResourceClass PC {
+   SourceFile "JD_SVD_IK.txa"
+  }
+  TXAResourceClass XBOX_ONE : PC {
+  }
+  TXAResourceClass PS4 : PC {
+  }
+  TXAResourceClass LINUX : PC {
+  }
+ }
+}

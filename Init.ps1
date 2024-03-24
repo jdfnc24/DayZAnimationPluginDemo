@@ -2,7 +2,7 @@ $current_item = Get-Item .
 $name = $current_item.Name
 $target_directory = $current_item.FullName
 
-$template_token = "ModTemplate"
+$template_token = "JDsAnimationDemo"
 
 if (-not (Test-Path (Join-Path $target_directory $template_token))) {
     Write-Host "Running re-initialization script" -ForegroundColor Yellow
@@ -37,7 +37,7 @@ New-Item -Path (Join-Path $current_item.FullName "Missions\Global") -ItemType Di
 New-Item -Path (Join-Path $current_item.FullName "Profiles\Dev") -ItemType Directory
 New-Item -Path (Join-Path $current_item.FullName "Profiles\Global") -ItemType Directory
 
-# Rename all ModTemplate folders
+# Rename all JDsAnimationDemo folders
 foreach ($folder in Get-ChildItem -Directory $target_directory -Recurse) {
     if ($folder.Name.Contains($template_token) -and ($template_token -ne $prefix)) {
         $new_name = $folder.FullName.Replace($template_token, $prefix)
@@ -52,8 +52,8 @@ foreach ($file in $files) {
     # Read the contents of the file
     $content = Get-Content $file.FullName
 
-    # Replace 'ModTemplate' with the value of $prefix
-    $updatedContent = $content -replace 'ModTemplate', $prefix
+    # Replace 'JDsAnimationDemo' with the value of $prefix
+    $updatedContent = $content -replace 'JDsAnimationDemo', $prefix
 
     # Write the updated content back to the file
     Set-Content -Path $file.FullName -Value $updatedContent

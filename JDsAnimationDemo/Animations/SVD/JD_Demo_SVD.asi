@@ -1,0 +1,42 @@
+$animsetinstance {
+ #template "DZ/anims/workspaces/player/player_main/player_main.ast"
+ #nparents 1
+ #parent "DZ/anims/workspaces/player/player_main/player_main_rifle.asi"
+ $animations {
+   
+   "WeaponOperations.ErcRas.Chambering_Closed" "DZ/anims/anm/player/reloads/SVD/p_erc_chambering_Closed_SVD_ras.anm"
+   "WeaponOperations.ErcRas.Chambering_Open" "DZ/anims/anm/player/reloads/SVD/p_erc_chambering_Open_SVD_ras.anm"
+   
+   "WeaponOperations.ErcRas.Fire" "DZ/anims/anm/player/reloads/SVD/p_erc_fire_SVD_ras.anm"
+   "WeaponOperations.ErcRas.FireEmptyAutomatic" "DZ/anims/anm/player/reloads/SVD/p_erc_fire_empty_SVD_ras.anm"
+   "WeaponOperations.ErcRas.FireJam" "DZ/anims/anm/player/reloads/SVD/p_erc_fire_Jam_SVD_ras.anm"
+   "WeaponOperations.ErcRas.FireLast" "DZ/anims/anm/player/reloads/SVD/p_erc_fire_last_SVD_ras.anm"
+   
+   "WeaponOperations.ErcRas.Jamming" "DZ/anims/anm/player/reloads/SVD/p_erc_jam_SVD_ras.anm"
+   "WeaponOperations.ErcRas.Jamming Cancel" "DZ/anims/anm/player/reloads/SVD/p_erc_jam_cancel_SVD_ras.anm"
+   
+   "WeaponOperations.ErcRas.ReloadAction_Closed" "DZ/anims/anm/player/reloads/SVD/p_erc_reloadAction_Closed_SVD_ras.anm"
+   "WeaponOperations.ErcRas.ReloadAction_Open" "DZ/anims/anm/player/reloads/SVD/p_erc_reloadAction_Open_SVD_ras.anm"
+   
+   "WeaponOperations.ErcRas.ReloadMagBullet" "DZ/anims/anm/player/reloads/SVD/p_erc_reload_mag_nobullet_SVD_ras.anm"
+   "WeaponOperations.ErcRas.ReloadMagNoBullet" "DZ/anims/anm/player/reloads/SVD/p_erc_reload_mag_nobullet_SVD_ras.anm"
+   "WeaponOperations.ErcRas.ReloadMagazineDetach" "DZ/anims/anm/player/reloads/SVD/p_erc_reload_mag_remove_SVD_ras.anm"
+   "WeaponOperations.ErcRas.ReloadNoMagBullet" "DZ/anims/anm/player/reloads/SVD/p_erc_reload_nomag_bullet_SVD_ras.anm"
+   "WeaponOperations.ErcRas.ReloadNoMagNoBullet" "DZ/anims/anm/player/reloads/SVD/p_erc_reload_mag_nobullet_SVD_ras.anm"
+   
+   "WeaponOperations.PneRas.Chambering_Closed" "DZ/anims/anm/player/reloads/SVD/p_pne_chambering_Closed_SVD_ras.anm"
+   "WeaponOperations.PneRas.Chambering_Open" "DZ/anims/anm/player/reloads/SVD/p_pne_chambering_Open_SVD_ras.anm"
+   "WeaponOperations.PneRas.Fire" "DZ/anims/anm/player/reloads/SVD/p_pne_fire_SVD_ras.anm"
+   "WeaponOperations.PneRas.FireEmptyAutomatic" "DZ/anims/anm/player/reloads/SVD/p_pne_fire_empty_SVD_ras.anm"
+   "WeaponOperations.PneRas.FireJam" "DZ/anims/anm/player/reloads/SVD/p_pne_fire_Jam_SVD_ras.anm"
+   "WeaponOperations.PneRas.FireLast" "DZ/anims/anm/player/reloads/SVD/p_pne_fire_last_SVD_ras.anm"
+   "WeaponOperations.PneRas.Jamming" "DZ/anims/anm/player/reloads/SVD/p_pne_jam_SVD_ras.anm"
+   "WeaponOperations.PneRas.Jamming Cancel" "DZ/anims/anm/player/reloads/SVD/p_pne_jam_cancel_SVD_ras.anm"
+   "WeaponOperations.PneRas.ReloadAction_Closed" "DZ/anims/anm/player/reloads/SVD/p_pne_reloadAction_Closed_SVD_ras.anm"
+   "WeaponOperations.PneRas.ReloadAction_Open" "DZ/anims/anm/player/reloads/SVD/p_pne_reloadAction_Open_SVD_ras.anm"
+   "WeaponOperations.PneRas.ReloadMagBullet" "DZ/anims/anm/player/reloads/SVD/p_pne_reload_mag_nobullet_SVD_ras.anm"
+   "WeaponOperations.PneRas.ReloadMagNoBullet" "DZ/anims/anm/player/reloads/SVD/p_pne_reload_mag_nobullet_SVD_ras.anm"
+   "WeaponOperations.PneRas.ReloadMagazineDetach" "DZ/anims/anm/player/reloads/SVD/p_pne_reload_mag_remove_SVD_ras.anm"
+   "WeaponOperations.PneRas.ReloadNoMagBullet" "DZ/anims/anm/player/reloads/SVD/p_pne_reload_nomag_bullet_SVD_ras.anm"
+   "WeaponOperations.PneRas.ReloadNoMagNoBullet" "DZ/anims/anm/player/reloads/SVD/p_pne_reload_mag_nobullet_SVD_ras.anm"
+ }

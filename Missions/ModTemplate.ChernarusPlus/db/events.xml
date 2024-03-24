@@ -12,7 +12,7 @@
         <flags deletable="0" init_random="0" remove_damaged="0"/>
         <position>fixed</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="2" min="1" type="Animal_GallusGallusDomesticus"/>
             <child lootmax="0" lootmin="0" max="4" min="1" type="Animal_GallusGallusDomesticusF_Brown"/>
@@ -32,7 +32,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="1" min="1" type="Animal_UrsusArctos"/>
         </children>
@@ -49,7 +49,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="1" min="0" type="Animal_BosTaurusF_Brown"/>
             <child lootmax="0" lootmin="0" max="1" min="0" type="Animal_BosTaurusF_Spotted"/>
@@ -71,7 +71,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="1" min="1" type="Animal_CervusElaphus"/>
             <child lootmax="0" lootmin="0" max="3" min="1" type="Animal_CervusElaphusF"/>
@@ -89,7 +89,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="3" min="1" type="Animal_CapraHircusF"/>
             <child lootmax="0" lootmin="0" max="1" min="0" type="Animal_CapraHircus_Black"/>
@@ -109,7 +109,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="2" min="1" type="Animal_SusDomesticus"/>
         </children>
@@ -126,7 +126,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="1" min="1" type="Animal_CapreolusCapreolus"/>
             <child lootmax="0" lootmin="0" max="4" min="2" type="Animal_CapreolusCapreolusF"/>
@@ -144,7 +144,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="2" min="1" type="Animal_OvisAries"/>
             <child lootmax="0" lootmin="0" max="5" min="3" type="Animal_OvisAriesF"/>
@@ -162,7 +162,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="6" min="3" type="Animal_SusScrofa"/>
         </children>
@@ -179,7 +179,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="6" min="2" type="Animal_CanisLupus_Grey"/>
             <child lootmax="0" lootmin="0" max="4" min="0" type="Animal_CanisLupus_White"/>
@@ -197,7 +197,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="30" type="ZmbM_PatrolNormal_Autumn"/>
             <child lootmax="5" lootmin="0" max="0" min="10" type="ZmbM_PatrolNormal_Flat"/>
@@ -220,7 +220,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="20" type="ZmbM_PatrolNormal_Autumn"/>
             <child lootmax="5" lootmin="0" max="0" min="10" type="ZmbM_PatrolNormal_Flat"/>
@@ -245,7 +245,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="7" type="ZmbF_BlueCollarFat_White"/>
             <child lootmax="5" lootmin="0" max="0" min="3" type="ZmbF_CitizenANormal_Beige"/>
@@ -301,7 +301,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="8" type="ZmbF_CitizenANormal_Brown"/>
             <child lootmax="5" lootmin="0" max="0" min="8" type="ZmbF_Clerk_Normal_Green"/>
@@ -329,7 +329,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="90" type="ZmbM_FirefighterNormal"/>
             <child lootmax="5" lootmin="0" max="0" min="10" type="ZmbM_NBC_Yellow"/>
@@ -347,7 +347,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="4" type="ZmbF_BlueCollarFat_Blue"/>
             <child lootmax="5" lootmin="0" max="0" min="4" type="ZmbF_BlueCollarFat_Green"/>
@@ -389,7 +389,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="10" type="ZmbF_DoctorSkinny"/>
             <child lootmax="5" lootmin="0" max="0" min="7" type="ZmbF_NurseFat"/>
@@ -418,7 +418,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="100" type="ZmbM_NBC_Grey"/>
         </children>
@@ -435,7 +435,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="3" lootmin="0" max="0" min="10" type="ZmbM_NBC_Yellow"/>
         </children>
@@ -452,7 +452,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="40" type="ZmbF_PoliceWomanNormal"/>
             <child lootmax="5" lootmin="0" max="0" min="40" type="ZmbM_PolicemanFat"/>
@@ -472,7 +472,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="100" min="90" type="ZmbM_PolicemanSpecForce_Heavy"/>
             <child lootmax="5" lootmin="0" max="10" min="0" type="ZmbM_PrisonerSkinny"/>
@@ -490,7 +490,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="100" type="ZmbM_PrisonerSkinny"/>
         </children>
@@ -507,7 +507,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="100" type="ZmbM_priestPopSkinny"/>
         </children>
@@ -524,7 +524,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="100" type="ZmbM_Santa"/>
         </children>
@@ -541,7 +541,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="5" type="ZmbF_HikerSkinny_Blue"/>
             <child lootmax="5" lootmin="0" max="0" min="5" type="ZmbF_HikerSkinny_Green"/>
@@ -576,7 +576,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="7" type="ZmbF_JoggerSkinny_Blue"/>
             <child lootmax="5" lootmin="0" max="0" min="6" type="ZmbF_JoggerSkinny_Brown"/>
@@ -616,7 +616,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>player</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="5" lootmin="0" max="0" min="17" type="ZmbF_JoggerSkinny_Red"/>
             <child lootmax="5" lootmin="0" max="0" min="5" type="ZmbF_MilkMaidOld_Green"/>
@@ -640,7 +640,7 @@
         <flags deletable="0" init_random="0" remove_damaged="0"/>
         <position>fixed</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="50" min="30" type="PileOfWoodenPlanks"/>
         </children>
@@ -657,7 +657,7 @@
         <flags deletable="0" init_random="0" remove_damaged="0"/>
         <position>fixed</position>
         <limit>custom</limit>
-        <active>1</active>
+        <active>0</active>
         <children/>
     </event>
     <event name="StaticBonfire">
@@ -707,7 +707,7 @@
         <flags deletable="1" init_random="1" remove_damaged="0"/>
         <position>fixed</position>
         <limit>parent</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="4" min="2" type="ContaminatedArea_Dynamic"/>
         </children>
@@ -740,7 +740,7 @@
         <flags deletable="1" init_random="0" remove_damaged="0"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="15" lootmin="10" max="3" min="1" type="Wreck_Mi8_Crashed"/>
             <child lootmax="15" lootmin="10" max="3" min="1" type="Wreck_UH1Y"/>
@@ -759,7 +759,7 @@
         <flags deletable="1" init_random="0" remove_damaged="0"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children/>
     </event>
     <event name="StaticPoliceCar">
@@ -794,7 +794,7 @@
         <flags deletable="1" init_random="0" remove_damaged="0"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children/>
     </event>
     <event name="StaticSantaCrash">
@@ -828,7 +828,7 @@
         <flags deletable="1" init_random="0" remove_damaged="0"/>
         <position>fixed</position>
         <limit>child</limit>
-        <active>1</active>
+        <active>0</active>
         <children/>
     </event>
     <event name="TrajectoryApple">
@@ -843,7 +843,7 @@
         <flags deletable="0" init_random="0" remove_damaged="0"/>
         <position>player</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="0" min="0" type="Apple"/>
         </children>
@@ -877,7 +877,7 @@
         <flags deletable="0" init_random="0" remove_damaged="0"/>
         <position>player</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="0" min="0" type="BoletusMushroom"/>
             <child lootmax="0" lootmin="0" max="0" min="0" type="MacrolepiotaMushroom"/>
@@ -895,7 +895,7 @@
         <flags deletable="0" init_random="0" remove_damaged="0"/>
         <position>player</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="0" min="0" type="LactariusMushroom"/>
         </children>
@@ -912,7 +912,7 @@
         <flags deletable="0" init_random="0" remove_damaged="0"/>
         <position>player</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="0" min="0" type="AgaricusMushroom"/>
             <child lootmax="0" lootmin="0" max="0" min="0" type="PleurotusMushroom"/>
@@ -930,7 +930,7 @@
         <flags deletable="0" init_random="0" remove_damaged="0"/>
         <position>player</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="0" min="0" type="Pear"/>
         </children>
@@ -947,7 +947,7 @@
         <flags deletable="0" init_random="0" remove_damaged="0"/>
         <position>player</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="0" min="0" type="Plum"/>
         </children>
@@ -981,7 +981,7 @@
         <flags deletable="0" init_random="0" remove_damaged="0"/>
         <position>player</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="0" min="0" type="SmallStone"/>
         </children>
@@ -998,7 +998,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="5" min="3" type="CivilianSedan"/>
             <child lootmax="0" lootmin="0" max="5" min="3" type="CivilianSedan_Black"/>
@@ -1017,7 +1017,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="5" min="3" type="Hatchback_02"/>
             <child lootmax="0" lootmin="0" max="5" min="3" type="Hatchback_02_Black"/>
@@ -1036,7 +1036,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="3" min="2" type="Offroad_02"/>
         </children>
@@ -1053,7 +1053,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="5" min="3" type="OffroadHatchback"/>
             <child lootmax="0" lootmin="0" max="5" min="3" type="OffroadHatchback_Blue"/>
@@ -1072,7 +1072,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="5" min="3" type="Sedan_02"/>
             <child lootmax="0" lootmin="0" max="5" min="3" type="Sedan_02_Grey"/>
@@ -1091,7 +1091,7 @@
         <flags deletable="0" init_random="0" remove_damaged="1"/>
         <position>fixed</position>
         <limit>mixed</limit>
-        <active>1</active>
+        <active>0</active>
         <children>
             <child lootmax="0" lootmin="0" max="5" min="3" type="Truck_01_Covered"/>
             <child lootmax="0" lootmin="0" max="5" min="3" type="Truck_01_Covered_Blue"/>
