@@ -10,27 +10,27 @@ modded class ModItemRegisterCallbacks
 		
 	}   
 	
-	override void CustomBoneRemapping(DayZPlayerType pType)
-    {
-		super.CustomBoneRemapping(pType);
+	// override void CustomBoneRemapping(DayZPlayerType pType)
+    // {
+		// super.CustomBoneRemapping(pType);
 		
-		pType.AddItemBoneRemap("JD_SVD_Base", { 
-			"bolt", 
-			"Weapon_Bolt", 
-			"magazine", 
-			"Weapon_Magazine", 
-			"trigger", 
-			"Weapon_Trigger", 
-			"charging", 
-			"Weapon_Bone_01", 
-			"bullet", 
-			"Weapon_Bullet", 
-			"mag_release", 
-			"Weapon_Bone_02", 
-			"boltrelease", 
-			"Weapon_Bone_03" 
-		});
+		// pType.AddItemBoneRemap("JD_SVD_Base", { 
+			// "bolt", 
+			// "Weapon_Bolt", 
+			// "magazine", 
+			// "Weapon_Magazine", 
+			// "trigger", 
+			// "Weapon_Trigger", 
+			// "charging", 
+			// "Weapon_Bone_01", 
+			// "bullet", 
+			// "Weapon_Bullet", 
+			// "mag_release", 
+			// "Weapon_Bone_02", 
+			// "boltrelease", 
+			// "Weapon_Bone_03" 
+		// });
 		
-	}
+	// }
 	
 };   

@@ -1,6 +1,6 @@
 GameProjectClass {
-	ID "ModTemplate"
-	TITLE "ModTemplate"
+	ID "JDsAnimationDemo"
+	TITLE "JDsAnimationDemo"
 	Configurations {
 		GameProjectConfigClass PC {
 			platformHardware PC
@@ -43,7 +43,7 @@ GameProjectClass {
 					Paths {
 						"scripts/1_Core"
 						"DabsFramework/Scripts/1_Core"
-						"ModTemplate/Scripts/1_Core"
+						"JDsAnimationDemo/Scripts/1_Core"
 					}
 					EntryPoint ""
 				}
@@ -59,7 +59,7 @@ GameProjectClass {
 					Paths {
 						"scripts/3_Game"
 						"DabsFramework/Scripts/3_Game"
-						"ModTemplate/Scripts/3_Game"
+						"JDsAnimationDemo/Scripts/3_Game"
 					}
 					EntryPoint "CreateGame"
 				}
@@ -68,7 +68,7 @@ GameProjectClass {
 					Paths {
 						"scripts/4_World"
 						"DabsFramework/Scripts/4_World"
-						"ModTemplate/Scripts/4_World"
+						"JDsAnimationDemo/Scripts/4_World"
 					}
 					EntryPoint ""
 				}
@@ -77,7 +77,7 @@ GameProjectClass {
 					Paths {
 						"scripts/5_Mission"
 						"DabsFramework/Scripts/5_Mission"
-						"ModTemplate/Scripts/5_Mission"
+						"JDsAnimationDemo/Scripts/5_Mission"
 					}
 					EntryPoint "CreateMission"
 				}
@@ -86,7 +86,7 @@ GameProjectClass {
 					Name "workbench"
 					Paths {
 						"DabsFramework/Workbench/ToolAddons"
-						"ModTemplate/Workbench/ToolAddons"
+						"JDsAnimationDemo/Workbench/ToolAddons"
 					} 
 					EntryPoint "CreateWorkbench"
 				} 

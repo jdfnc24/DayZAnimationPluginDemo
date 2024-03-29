@@ -2,44 +2,29 @@ class CfgPatches
 {
 	class JDsAnimationDemo_Scripts
 	{
+		requiredVersion = 0.1;
 		requiredAddons[] = { "DZ_Scripts" };
 	};
-};
-
-class CfgAddons
-{
-    class PreloadAddons
-    {
-        class JDsAnimationDemo
-        {
-            list[]={};
-        };
-    };
 };
 
 class CfgMods
 {
     class JDsAnimationDemo
     {
-        name="";
+        name="JDs Animation Demo";
         dir="JDsAnimationDemo";
         picture="";
         action="";
-        author="";
+        author="jdfnc24";
         overview = "";
 		inputs = "";
         defines[] = {};
-
+		dependencies[] =
+		{
+			"Game", "World", "Mission"
+		};
         class defs
 		{
-			class imageSets
-			{
-				files[]= {};
-			};
-			class widgetStyles
-			{
-				files[]= {};
-			};
 
 			class engineScriptModule 
 			{ 

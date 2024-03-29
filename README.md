@@ -1,3 +1,16 @@
+
+Original Author: MrTea
+Testing and Plugin Editing: HunterZ
+Testing: jdfnc24
+Plugin Editing: sysrover
+Inspiration: DTZxPorter
+
+
+
+
+
+
+
 # DayZ-Mod-Template
 
  A Comprehensive Mod Template for DayZ. Optimized with Workbench for Advanced Scripting and pboProject for Efficient Building.
