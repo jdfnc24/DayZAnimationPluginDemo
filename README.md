@@ -24,7 +24,7 @@ Original Author: MrTea
 
 Testing and Plugin Editing: HunterZ 
 
-Testing: jdfnc24 
+Testing: jdfnc24, Sajid_Alfa, Nazzgy
 
 Plugin Editing: sysrover 
 
