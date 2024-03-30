@@ -1,7 +1,7 @@
 
-#### DayZ Blender Animation Plugin 	
+# DayZ Blender Animation Plugin 	
 
-	# Requires Atleast Blender Version 3.6.8
+ ### Requires Atleast Blender Version 3.6.8
 
 This plugin allows you to import, edit, and export .txo and .txa files. With the use of DayZ Tools' Workbench, you can import them into your mod; Workbench converts the files to a .xob or .anm respectfully. The tool also allows you to add/edit animation events with the use of the sidebar menu
  
@@ -18,16 +18,20 @@ Using Mikero's DeAnmGUI.exe (paid version of Mikeros tools) is highly recommende
 Copy the included "DayzAnimationTools" folder, and paste into the "/scripts/addons" folder of your version of Blender located in "%AppData\Roaming\Blender Foundation\Blender". Then open Blender, go to Edit -> Preferences -> Addons and search for "DayZ" then activate the tool. 
 
 
-# Credit
+## Credit
 
-	- Original Author: MrTea
-	- Testing and Plugin Editing: HunterZ
-	- Testing: jdfnc24
-	- Plugin Editing: sysrover
-	- Inspiration: DTZxPorter
+Original Author: MrTea 
+
+Testing and Plugin Editing: HunterZ 
+
+Testing: jdfnc24 
+
+Plugin Editing: sysrover 
+
+Inspiration: DTZxPorter 
 
 
 
 # Info and Instructions On How To Use This DayZ Mod Template
 
-	- Check out the original repo posted by InclementDab: `https://github.com/InclementDab/DayZ-Mod-Template`
+Check out the original repo posted by InclementDab: https://github.com/InclementDab/DayZ-Mod-Template
