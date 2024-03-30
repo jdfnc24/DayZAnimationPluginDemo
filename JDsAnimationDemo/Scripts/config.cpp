@@ -7,43 +7,63 @@ class CfgPatches
 	};
 };
 
-class CfgMods
+class CfgMods 
 {
-    class JDsAnimationDemo
-    {
-        name="JDs Animation Demo";
-        dir="JDsAnimationDemo";
-        picture="";
-        action="";
-        author="jdfnc24";
-        overview = "";
-		inputs = "";
-        defines[] = {};
+	class DZ_JDsAnimationDemo
+	{
+		name = "JDsAnimationDemo";
+		dir = "JDsAnimationDemo";
+		credits = "";
+		author = "";
+		type = "mod";
 		dependencies[] =
 		{
 			"Game", "World", "Mission"
 		};
-        class defs
+		class defs
 		{
-
-			class engineScriptModule 
-			{ 
-				files[] = { "JDsAnimationDemo/Scripts/1_Core"};
+			class imageSets
+			{
+				files[]= {};
+			};
+			class engineScriptModule
+			{
+				value = "";
+				files[] =
+				{
+					"JDsAnimationDemo/Scripts/common",
+					"JDsAnimationDemo/Scripts/1_core"
+				};
 			};
 
 			class gameScriptModule
 			{
-				files[] = { "JDsAnimationDemo/Scripts/3_Game" };
+				value="";
+				files[] = 
+				{
+					"JDsAnimationDemo/Scripts/common",
+					"JDsAnimationDemo/Scripts/3_Game"
+				};
 			};
 			class worldScriptModule
 			{
-				files[] = { "JDsAnimationDemo/Scripts/4_World" };
+				value="";
+				files[] = 
+				{
+					"JDsAnimationDemo/Scripts/common",
+					"JDsAnimationDemo/Scripts/4_World"
+				};
 			};
 
 			class missionScriptModule 
 			{
-				files[] = { "JDsAnimationDemo/Scripts/5_Mission" };
+				value="";
+				files[] = 
+				{
+					"JDsAnimationDemo/Scripts/common",
+					"JDsAnimationDemo/Scripts/5_Mission"
+				};
 			};
 		};
-    };
+	};
 };
