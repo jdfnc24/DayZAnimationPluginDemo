@@ -5,6 +5,7 @@ $animsetinstance {
  #ikpose "JDsAnimationDemo/Animations/SVD/JD_SVD_IK.anm"
  $animations { 
 
+
 // ! Erect
 	
 	// ! Chamber Bullet Actions
