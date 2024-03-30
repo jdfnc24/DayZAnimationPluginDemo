@@ -10,7 +10,7 @@ The included .txa and .blend samples can help you get started.
 Also included is an unpacked SVD (rifle) sample mod, and .blend samples of the IK, w_states, and fire animations for this SVD. 
 
 
-Using Mikero's DeAnmGUI.exe (paid version of Mikeros tools) is highly recommended and will make life a lot easier. 
+Using Mikero's DeAnmGUI.exe (paid version of Mikeros tools) is highly recommended, but not required. 
 	
 	
 # Adding The Plugin To Blender 
