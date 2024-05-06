@@ -1,7 +1,7 @@
 MetaFileClass {
- Name "{5E54387D1AD1A501}JDsAnimationDemo/Animations/SVD/JD_SVD_Fire_Empty.anm"
+ Name "{5E54387D1AD1A501}JDsAnimationDemo/Animations/SVD/JD_SVD_Fire_Empty.txa"
  Author "desktop-filcs3j"
- ChangeDate 146550904
+ ChangeDate 1670082726
  Configurations {
   TXAResourceClass PC {
    SourceFile "JD_SVD_Fire_Empty.txa"

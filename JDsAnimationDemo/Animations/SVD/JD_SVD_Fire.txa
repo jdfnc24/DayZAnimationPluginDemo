@@ -383,4 +383,7 @@ $animation "JD_SVD_Fire" {
    }
   }
  }
+ $events {
+  #event 1 "Weapon_BulletEject" "" -1
+}
 }

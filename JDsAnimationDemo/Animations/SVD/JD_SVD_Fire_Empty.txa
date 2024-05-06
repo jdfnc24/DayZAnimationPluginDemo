@@ -363,4 +363,7 @@ $animation "JD_SVD_Fire_Empty" {
    }
   }
  }
+ $events {
+  #event 0 "Sound" "" 280
+}
 }

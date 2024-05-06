@@ -1,7 +1,7 @@
 MetaFileClass {
- Name "{EB4E21B8FC142542}JDsAnimationDemo/Animations/SVD/JD_SVD_Fire.anm"
+ Name "{EB4E21B8FC142542}JDsAnimationDemo/Animations/SVD/JD_SVD_Fire.txa"
  Author "desktop-filcs3j"
- ChangeDate 1924411512
+ ChangeDate 1569419430
  Configurations {
   TXAResourceClass PC {
    SourceFile "JD_SVD_Fire.txa"
