@@ -10,6 +10,8 @@ import string
 import time
 from DayzAnimationTools.Types.Txo import *
 
+blender_version = bpy.app.version
+
 def apply_transfrom(ob, use_location=False, use_rotation=False, use_scale=False):
 	mb = ob.matrix_basis
 	I = Matrix()
@@ -391,7 +393,8 @@ def export_action(self, context, progress, exportSettings:TxoExportSettings = Tx
 			bm = bmesh.new()
 			bm.from_mesh(mesh.data)
 			bm.faces.ensure_lookup_table()
-			mesh.data.calc_normals_split()
+			if blender_version < (4, 1, 0):
+				mesh.data.calc_normals_split()
 
 			txoMesh = TxoMesh()
 
@@ -434,8 +437,11 @@ def export_action(self, context, progress, exportSettings:TxoExportSettings = Tx
 					idxTxoFv = len(face.loops) - idxLoop + numTxoFv - 1
 					txoFaceVert.idxList = [idxTxoFv, idxTxoFv]
 					txoMesh.faceVerts.insert(numTxoFv, txoFaceVert)
-					normal = mesh.data.loops[loop.index].normal
-					txoMesh.normals.insert(numTxoFv, FVector(normal.x, normal.y, normal.z))
+					if blender_version >= (4, 1, 0):
+						txoMesh.normals.insert(numTxoFv, FVector(loop.vert.normal.x, loop.vert.normal.y, loop.vert.normal.z))
+					else:
+						normal = mesh.data.loops[loop.index].normal
+						txoMesh.normals.insert(numTxoFv, FVector(normal.x, normal.y, normal.z))
 				
 				txoFace = TxoFace()
 				if len(mesh.material_slots) == 0 and face.material_index == 0:
