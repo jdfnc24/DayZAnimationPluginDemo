@@ -6,7 +6,10 @@ from bpy.props import *
 from bpy_extras.io_utils import ImportHelper
 import os
 import time
+import math
 from DayzAnimationTools.Types.Txo import *
+
+blender_version = bpy.app.version
 
 class TXO_PT_Import_Include(bpy.types.Panel):
 	bl_space_type = 'FILE_BROWSER'
@@ -32,6 +35,10 @@ class TXO_PT_Import_Include(bpy.types.Panel):
 		layout.prop(operator, "bImportMesh")
 		layout.prop(operator, "bImportNormals")
 		layout.prop(operator, "bImportUVs")
+		if blender_version >= (4, 1, 0):
+			layout.prop(operator, "bSmoothShading")
+			if operator.bSmoothShading:
+				layout.prop(operator, "fSmoothAngle")
 
 class TXO_PT_Import_Transform(bpy.types.Panel):
 	bl_space_type = 'FILE_BROWSER'
@@ -122,15 +129,49 @@ class ImportTxoOperator(bpy.types.Operator, ImportHelper):
 		description='Connects children with no siblings to their parent, makes the skeleton look cleaner, but can limit translation ability',
 		default=True
 	)
+	if blender_version >= (4, 1, 0):
+		bSmoothShading: BoolProperty(
+			name='Smooth Shading',
+			description='Apply smooth shading to the mesh',
+			default=False
+		)
+		fSmoothAngle: FloatProperty(
+			name='Smooth Angle',
+			description='Angle threshold for smooth shading (in degrees)',
+			default=60.0,
+			min=0.0,
+			max=180.0,
+			subtype='ANGLE'
+		)
 
 	def draw(self, context):
 		pass
 	
+	def apply_smooth_shading(obj, angle):
+
+		# Enter Edit Mode
+		bpy.ops.object.mode_set(mode='EDIT')
+		bpy.ops.mesh.select_all(action='SELECT')
+
+		# Set sharpness by angle
+
+		# Exit Edit Mode
+		bpy.ops.object.mode_set(mode='OBJECT')
+
+		# Add the "Set Sharp by Angle" modifier
+		mod = obj.modifiers.new("SmoothByAngle", 'SET_SHARP_BY_ANGLE')
+		mod.angle = math.radians(angle)
+
+		# Optionally, you can also use the "Shade Smooth by Angle" operator
+
 	def execute(self, context):
 		start_time = time.process_time()
 
 		importSettings = TxoImportSettings()
-		importSettings.fUnitScale:float = self.fUnitScale
+		if blender_version >= (4, 1, 0):
+			importSettings.fUnitScale = self.fUnitScale
+		else:
+			importSettings.fUnitScale:float = self.fUnitScale
 		importSettings.bImportSkeleton = self.bImportSkeleton
 		importSettings.bImportMesh = self.bImportMesh
 		importSettings.bImportNormals = self.bImportNormals
@@ -138,9 +179,15 @@ class ImportTxoOperator(bpy.types.Operator, ImportHelper):
 		importSettings.bTryConnectBones = self.bTryConnectBones
 
 		result = load(self, context, importSettings)
-		
+
 		if not result:
 			self.report({'INFO'}, 'Txo Import Finished in %.2f sec.' % (time.process_time() - start_time))
+			if blender_version >= (4, 1, 0):
+				# Apply smooth shading if enabled
+				if self.bSmoothShading:
+					for obj in context.scene.objects:
+						if obj.type == 'MESH':
+							apply_smooth_shading(obj, self.fSmoothAngle)
 		else:
 			self.report({'ERROR'}, result)
 
@@ -271,14 +318,18 @@ def load(self, context, importSettings:TxoImportSettings = TxoImportSettings()):
 
 						# Begin vertex normal assignment logic
 						if importSettings.bImportNormals:
-							new_mesh.create_normals_split()
-							new_mesh.validate(clean_customdata=False)
-							new_mesh.normals_split_custom_set(vertexSplitNormalBuffer)
+							if blender_version >= (4, 1, 0):
+								new_mesh.normals_split_custom_set_from_vertices(vertexSplitNormalBuffer)
+							else:
+								new_mesh.create_normals_split()
+								new_mesh.validate(clean_customdata=False)
+								new_mesh.normals_split_custom_set(vertexSplitNormalBuffer)
 						else:
 							for p in new_mesh.polygons:
 								p.use_smooth = True
 
-						new_mesh.use_auto_smooth = True
+						if blender_version < (4, 1, 0):
+							new_mesh.use_auto_smooth = True
 
 						# Add the mesh to the scene
 						obj = bpy.data.objects.new(txoMeshName, new_mesh)
