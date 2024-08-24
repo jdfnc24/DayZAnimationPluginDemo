@@ -133,7 +133,7 @@ class ExportTxaOperator(bpy.types.Operator, ExportHelper):
 		min=0
 	)
 	eAnimType : EnumProperty(
-        items=ANIM_TYPES,
+		items=ANIM_TYPES,
 		name='Type',
 		description='Animation type',
 		default=0
@@ -290,13 +290,11 @@ def save(self, context, exportSettings:TxaExportSettings = TxaExportSettings()):
 		return 'No animation data to export!'
 	
 	with ProgressReport(context.window_manager) as progress:
-
 		if exportSettings.bSaveAll:
 			if len(bpy.data.actions) < 1:
 				return 'No actions to export!'
 			
 			path = os.path.dirname(self.filepath)
-
 			actionOriginal = ob.animation_data.action
 
 			for action in bpy.data.actions:
@@ -323,184 +321,178 @@ def save(self, context, exportSettings:TxaExportSettings = TxaExportSettings()):
 
 
 def export_action(self, context, progress, filepath, exportSettings:TxaExportSettings = TxaExportSettings()):
-	ob = bpy.context.object
+    ob = bpy.context.object
+    action = ob.animation_data.action
 
-	action = ob.animation_data.action
-	action.use_frame_range = True
-	frame_original = context.scene.frame_current
-	frame_start = max(0, int(action.frame_range[0]))
-	frame_end = context.scene.frame_end
-	
-	txaAnimation = TxaAnimation()
-	txaAnimation.numFrames = frame_end - frame_start + 1
-	txaAnimation.fps = context.scene.render.fps
+    frame_original = context.scene.frame_current
+    frame_start, frame_end = action.frame_range
+    frame_start = max(0, int(frame_start))
+    frame_end = int(frame_end)
+    
+    txaAnimation = TxaAnimation()
+    txaAnimation.numFrames = frame_end - frame_start + 1
+    txaAnimation.fps = context.scene.render.fps
 
-	if exportSettings.fpsOverride:
-		txaAnimation.fps = exportSettings.fpsOverride
-			
-	constraintMap = {}
-	def ToggleContraints(bValue:bool = False):
-		if not bValue:
-			for bone in ob.pose.bones:
-				if len(bone.constraints) > 0:
-					constraintMap[bone] = []
-				for c in bone.constraints:
-					constraintMap[bone].append(c.enabled)
-					c.enabled = False
-			if len(constraintMap) > 0:
-				bpy.context.view_layer.update()
-		else:
-			bAny = len(constraintMap) > 0
-			for bone, constraints in constraintMap.items():
-				for i in range(len(constraints)):
-					bone.constraints[i].enabled = constraints[i]
-			if bAny:
-				bpy.context.view_layer.update()
+    if exportSettings.fpsOverride:
+        txaAnimation.fps = exportSettings.fpsOverride
+            
+    constraintMap = {}
+    def ToggleContraints(bValue:bool = False):
+        if not bValue:
+            for bone in ob.pose.bones:
+                if len(bone.constraints) > 0:
+                    constraintMap[bone] = []
+                for c in bone.constraints:
+                    constraintMap[bone].append(c.enabled)
+                    c.enabled = False
+            if len(constraintMap) > 0:
+                bpy.context.view_layer.update()
+        else:
+            bAny = len(constraintMap) > 0
+            for bone, constraints in constraintMap.items():
+                for i in range(len(constraints)):
+                    bone.constraints[i].enabled = constraints[i]
+            if bAny:
+                bpy.context.view_layer.update()
 
-	# Disable constraints for now
-	ToggleContraints()
+    # Disable constraints for now
+    ToggleContraints()
 
-	boneKeyframes:dict[str,list[TxaKeyframe]] = {}
+    boneKeyframes:dict[str,list[TxaKeyframe]] = {}
 
-	for frame in range(txaAnimation.numFrames):
-		context.scene.frame_set(frame + frame_start)
+    for frame in range(txaAnimation.numFrames):
+        context.scene.frame_set(frame + frame_start)
 
-		for pb in ob.pose.bones:
-			boneName = pb.name
+        for pb in ob.pose.bones:
+            boneName = pb.name
 
-			if boneName not in boneKeyframes:
-				boneKeyframes[boneName] = []
+            if boneName not in boneKeyframes:
+                boneKeyframes[boneName] = []
 
-			bforearmdirection = exportSettings.sAnimType.startswith('IK') and (boneName.lower() == 'leftforearmdirection' or boneName.lower() == 'rightforearmdirection')
+            bforearmdirection = exportSettings.sAnimType.startswith('IK') and (boneName.lower() == 'leftforearmdirection' or boneName.lower() == 'rightforearmdirection')
 
-			if bforearmdirection:
-				ToggleContraints(True)
-			
-			t = GetBoneLocation(pb, exportSettings)
-			q = GetBoneRotation(pb, exportSettings)
-			s = GetBoneScale(pb, exportSettings)
+            if bforearmdirection:
+                ToggleContraints(True)
+            
+            t = GetBoneLocation(pb, exportSettings)
+            q = GetBoneRotation(pb, exportSettings)
+            s = GetBoneScale(pb, exportSettings)
 
-			if bforearmdirection:
-				ToggleContraints()
+            if bforearmdirection:
+                ToggleContraints()
 
-			if frame:
-				lastKf = boneKeyframes[boneName][len(boneKeyframes[boneName]) - 1]
-				bSkipT, bSkipQ, bSkipS = False, False, False
+            if frame:
+                lastKf = boneKeyframes[boneName][len(boneKeyframes[boneName]) - 1]
+                bSkipT, bSkipQ, bSkipS = False, False, False
 
-				if not exportSettings.bExportTranslationKeys:
-					bSkipT = True
-				elif t.NearlyEquals(FVector.zero()):
-					bSkipT = True
-				elif lastKf.HasTranslation() and t.NearlyEquals(lastKf.translation):
-					bSkipT = True
+                if not exportSettings.bExportTranslationKeys:
+                    bSkipT = True
+                elif t.NearlyEquals(FVector.zero()):
+                    bSkipT = True
+                elif lastKf.HasTranslation() and t.NearlyEquals(lastKf.translation):
+                    bSkipT = True
 
-				if not exportSettings.bExportRotationKeys:
-					bSkipQ = True
-				elif q.NearlyEquals(FQuaternion.identity()):
-					bSkipQ = True
-				elif lastKf.HasRotation() and q.NearlyEquals(lastKf.rotation):
-					bSkipQ = True
+                if not exportSettings.bExportRotationKeys:
+                    bSkipQ = True
+                elif q.NearlyEquals(FQuaternion.identity()):
+                    bSkipQ = True
+                elif lastKf.HasRotation() and q.NearlyEquals(lastKf.rotation):
+                    bSkipQ = True
 
-				if not exportSettings.bExportScaleKeys:
-					bSkipS = True
-				elif s.NearlyEquals(FVector.one()):
-					bSkipS = True
-				elif lastKf.HasScale() and s.NearlyEquals(lastKf.scale):
-					bSkipS = True
-				
-				if bSkipT and bSkipQ and bSkipS:
-					lastKf.frameEnd = frame
-					continue
+                if not exportSettings.bExportScaleKeys:
+                    bSkipS = True
+                elif s.NearlyEquals(FVector.one()):
+                    bSkipS = True
+                elif lastKf.HasScale() and s.NearlyEquals(lastKf.scale):
+                    bSkipS = True
+                
+                if bSkipT and bSkipQ and bSkipS:
+                    lastKf.frameEnd = frame
+                    continue
 
-			txaKf = TxaKeyframe()
-			txaKf.frameStart = frame
+            txaKf = TxaKeyframe()
+            txaKf.frameStart = frame
 
-			if exportSettings.sAnimType.startswith('IK'):
-				txaKf.frameEnd = 1
-			else:
-				txaKf.frameEnd = frame
+            if exportSettings.sAnimType.startswith('IK'):
+                txaKf.frameEnd = 1
+            else:
+                txaKf.frameEnd = frame
 
-			if exportSettings.bExportTranslationKeys and not t.NearlyEquals(FVector.zero()):
-				txaKf.translation = t
-			if exportSettings.bExportRotationKeys and not q.NearlyEquals(FQuaternion.identity()):
-				txaKf.rotation = q
-			if exportSettings.bExportScaleKeys and not s.NearlyEquals(FVector.one()):
-				txaKf.scale = s
-			boneKeyframes[boneName].append(txaKf)
-			
-		if exportSettings.sAnimType.startswith('IK'):
-			break
+            if exportSettings.bExportTranslationKeys and not t.NearlyEquals(FVector.zero()):
+                txaKf.translation = t
+            if exportSettings.bExportRotationKeys and not q.NearlyEquals(FQuaternion.identity()):
+                txaKf.rotation = q
+            if exportSettings.bExportScaleKeys and not s.NearlyEquals(FVector.one()):
+                txaKf.scale = s
+            boneKeyframes[boneName].append(txaKf)
+            
+        if exportSettings.sAnimType.startswith('IK'):
+            break
 
-	# Events
-	for marker in action.pose_markers:
-		if not '|' in marker.name: continue
-		data = marker.name.split('|')
-		if len(data) != 3: continue
-		name, userString, userInt = data
+    # Events
+    for marker in action.pose_markers:
+        if not '|' in marker.name: continue
+        data = marker.name.split('|')
+        if len(data) != 3: continue
+        name, userString, userInt = data
 
-		event = TxaEvent()
-		event.frame = marker.frame
-		event.name = name
-		event.userString = userString
-		event.userInt = int(userInt)
-		
-		txaAnimation.events.append(event)
+        event = TxaEvent()
+        event.frame = marker.frame
+        event.name = name
+        event.userString = userString
+        event.userInt = int(userInt)
+        
+        txaAnimation.events.append(event)
 
-	emptyKf = TxaKeyframe()
-	emptyKf.frameEnd = frame_end
+    emptyKf = TxaKeyframe()
+    emptyKf.frameEnd = frame_end
 
-	def RecurseExportBone(bone:bpy_types.Bone, parentTxaBone:TxaBone):
-		txaBone = None
+    def RecurseExportBone(bone:bpy_types.Bone, parentTxaBone:TxaBone):
+        txaBone = None
 
-		if ShouldSkipBone(bone, exportSettings) or (exportSettings.sAnimType == 'ADD' and bone.name not in boneKeyframes):
-			print(f'[DayzAnimationTools]: Info: Skipping export for bone "{bone.name}"')
-		else:
-			txaBone = TxaBone()
+        if ShouldSkipBone(bone, exportSettings) or (exportSettings.sAnimType == 'ADD' and bone.name not in boneKeyframes):
+            print(f'[DayzAnimationTools]: Info: Skipping export for bone "{bone.name}"')
+        else:
+            txaBone = TxaBone()
 
-			if bone.name in boneKeyframes:
-				txaBone.keyframes = boneKeyframes[bone.name]
-			else:
-				txaBone.keyframes = [emptyKf]
+            if bone.name in boneKeyframes:
+                txaBone.keyframes = boneKeyframes[bone.name]
+            else:
+                txaBone.keyframes = [emptyKf]
 
-			txaBoneName = bone.name
+            txaBoneName = bone.name
 
-			if parentTxaBone == None:
-				# if exportSettings.sAnimType.startswith('IK') and (txaBoneName.lower() == 'leftforearm' or txaBoneName.lower() == 'rightforearm'):
-				# 	txaAnimation.rootBones[txaBoneName + 'DirectionOrigin'] = txaBone
-				# 	txaBone = None
-				# else:
-				txaAnimation.rootBones[txaBoneName] = txaBone
-			else:
-				parentTxaBone.children[txaBoneName] = txaBone
-			
-			# Special case
-			if bone.name == 'LeftHandOrigin': # LeftHandIKTarget (copy LeftHandOrigin)
-				if parentTxaBone == None:
-					txaAnimation.rootBones['LeftHandIKTarget'] = txaBone
-				else:
-					parentTxaBone.children['LeftHandIKTarget'] = txaBone
+            if parentTxaBone == None:
+                txaAnimation.rootBones[txaBoneName] = txaBone
+            else:
+                parentTxaBone.children[txaBoneName] = txaBone
+            
+            if bone.name == 'LeftHandOrigin': # LeftHandIKTarget (copy LeftHandOrigin)
+                if parentTxaBone == None:
+                    txaAnimation.rootBones['LeftHandIKTarget'] = txaBone
+                else:
+                    parentTxaBone.children['LeftHandIKTarget'] = txaBone
 
+        for childBone in bone.children:
+            RecurseExportBone(childBone, txaBone)
 
-		for childBone in bone.children:
-			RecurseExportBone(childBone, txaBone)
-			
-	# Setup Scene_Root bone if full body
-	sceneRoot = None
-	if exportSettings.sAnimType == 'FB':
-		sceneRoot = TxaBone()
-		sceneRoot.keyframes = [emptyKf]
-		txaAnimation.rootBones['Scene_Root'] = sceneRoot
-	
-	for bone in ob.data.bones:
-		if not bone.parent:
-			RecurseExportBone(bone, sceneRoot)
+    # Setup Scene_Root bone if full body
+    sceneRoot = None
+    if exportSettings.sAnimType == 'FB':
+        sceneRoot = TxaBone()
+        sceneRoot.keyframes = [emptyKf]
+        txaAnimation.rootBones['Scene_Root'] = sceneRoot
+    
+    for bone in ob.data.bones:
+        if not bone.parent:
+            RecurseExportBone(bone, sceneRoot)
 
-	txa = Txa()
-	txa.name = os.path.splitext(os.path.basename(filepath))[0].replace(' ', '_')
-	txa.animations[txa.name] = txaAnimation
-	txa.Write(filepath)
+    txa = Txa()
+    txa.name = os.path.splitext(os.path.basename(filepath))[0].replace(' ', '_')
+    txa.animations[txa.name] = txaAnimation
+    txa.Write(filepath)
 
-	# Re-enable constraints
-	ToggleContraints(True)
+    # Re-enable constraints
+    ToggleContraints(True)
 
-	context.scene.frame_set(frame_original)
+    context.scene.frame_set(frame_original)
