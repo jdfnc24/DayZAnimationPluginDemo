@@ -2,6 +2,7 @@ import bpy
 from .EventManager import *
 from .GenerateModelCfg import *
 from .AddSurvivorIK import *
+from ..modules.bpyHandler import registerClasses, registerMenus, unregisterClasses, unregisterMenus
 
 class DZAT_MT_ToolsMenu(bpy.types.Menu):
     bl_label = 'Tools'
@@ -33,18 +34,19 @@ def register():
 	bpy.utils.register_class(DZAT_MT_ToolsMenu)
 	bpy.types.DZAT_MT_ToolbarMenu.append(DZAT_ToolsMenu)
 
-	for cls in classes:
-		bpy.utils.register_class(cls)
+	registerClasses(classes)
 
-	for menu in menus:
-		bpy.types.DZAT_MT_ToolsMenu.append(menu)
+	registerMenus(menus, 'DZAT_MT_ToolsMenu')
 
 	bpy.types.Scene.eventmanager = CollectionProperty(type = EventManagerPg)
 	bpy.types.Scene.eventmanager_index = IntProperty(name = 'Select Event')
 
 def unregister():
-	for cls in classes:
-		bpy.utils.unregister_class(cls)
+	unregisterMenus(menus, 'DZAT_MT_ToolsMenu')
+	unregisterClasses(classes)
+
+	bpy.types.DZAT_MT_ToolbarMenu.remove(DZAT_ToolsMenu)
+	bpy.utils.unregister_class(DZAT_MT_ToolsMenu)
 
 if __name__ == "__main__":
 	register()

@@ -8,6 +8,7 @@ import os
 import time
 import math
 from DayzAnimationTools.Types.Txo import *
+from ..modules.bpyHandler import getOperator, setLayoutProps, getLayout
 
 blender_version = bpy.app.version
 
@@ -19,22 +20,14 @@ class TXO_PT_Import_Include(bpy.types.Panel):
 
 	@classmethod
 	def poll(cls, context):
-		sfile = context.space_data
-		operator = sfile.active_operator
-		return operator.bl_idname == "IMPORT_SCENE_OT_txo"
+		return getOperator(context).bl_idname == "IMPORT_SCENE_OT_txo"
 
 	def draw(self, context):
-		layout = self.layout
-		layout.use_property_split = True
-		layout.use_property_decorate = False
+		layout = getLayout(self)
 
-		sfile = context.space_data
-		operator = sfile.active_operator
+		operator = getOperator(context)
 
-		layout.prop(operator, "bImportSkeleton")
-		layout.prop(operator, "bImportMesh")
-		layout.prop(operator, "bImportNormals")
-		layout.prop(operator, "bImportUVs")
+		setLayoutProps(layout, operator, ["bImportSkeleton","bImportMesh", "bImportNormals", "bImportUVs"])
 		if blender_version >= (4, 1, 0):
 			layout.prop(operator, "bSmoothShading")
 			if operator.bSmoothShading:
@@ -48,19 +41,12 @@ class TXO_PT_Import_Transform(bpy.types.Panel):
 
 	@classmethod
 	def poll(cls, context):
-		sfile = context.space_data
-		operator = sfile.active_operator
-		return operator.bl_idname == "IMPORT_SCENE_OT_txo"
+		return getOperator(context).bl_idname == "IMPORT_SCENE_OT_txo"
 
 	def draw(self, context):
-		layout = self.layout
-		layout.use_property_split = True
-		layout.use_property_decorate = False
+		layout = getLayout(self)
 
-		sfile = context.space_data
-		operator = sfile.active_operator
-
-		layout.prop(operator, "fUnitScale")
+		layout.prop(getOperator(context), "fUnitScale")
 
 class TXO_PT_Import_Armature(bpy.types.Panel):
 	bl_space_type = 'FILE_BROWSER'
@@ -70,19 +56,12 @@ class TXO_PT_Import_Armature(bpy.types.Panel):
 
 	@classmethod
 	def poll(cls, context):
-		sfile = context.space_data
-		operator = sfile.active_operator
-		return operator.bl_idname == "IMPORT_SCENE_OT_txo"
+		return getOperator(context).bl_idname == "IMPORT_SCENE_OT_txo"
 
 	def draw(self, context):
-		layout = self.layout
-		layout.use_property_split = True
-		layout.use_property_decorate = False
+		layout = getLayout(self)
 
-		sfile = context.space_data
-		operator = sfile.active_operator
-
-		layout.prop(operator, "bTryConnectBones")
+		layout.prop(getOperator(context), "bTryConnectBones")
 
 def ImportTxoMenu(self, context):
 	self.layout.operator(ImportTxoOperator.bl_idname, text='DayZ Object (.txo)', icon='OBJECT_DATA')

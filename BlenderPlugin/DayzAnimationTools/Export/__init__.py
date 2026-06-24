@@ -1,6 +1,7 @@
 import bpy
 from .ExportTxo import *
 from .ExportTxa import *
+from ..modules.bpyHandler import registerClasses, registerMenus, unregisterClasses, unregisterMenus
 
 class DZAT_MT_ExportMenu(bpy.types.Menu):
     bl_label = 'Export'
@@ -28,18 +29,14 @@ def register():
 	bpy.utils.register_class(DZAT_MT_ExportMenu)
 	bpy.types.DZAT_MT_ToolbarMenu.append(DZAT_ExportMenu)
 
-	for cls in classes:
-		bpy.utils.register_class(cls)
+	registerClasses(classes)
 
-	for menu in menus:
-		bpy.types.DZAT_MT_ExportMenu.append(menu)
+	registerMenus(menus, 'DZAT_MT_ExportMenu')
 
 def unregister():
-	for menu in menus:
-		bpy.types.DZAT_MT_ExportMenu.remove(menu)
-
-	for cls in classes:
-		bpy.utils.unregister_class(cls)
+	unregisterMenus(menus, 'DZAT_MT_ExportMenu')
+    
+	unregisterClasses(classes)
 		
 	bpy.types.DZAT_MT_ToolbarMenu.remove(DZAT_ExportMenu)
 	bpy.utils.unregister_class(DZAT_MT_ExportMenu)

@@ -42,7 +42,8 @@ def unregister():
 	bpy.types.VIEW3D_MT_editor_menus.remove(DZAT_ToolbarMenu)
 	bpy.utils.unregister_class(DZAT_MT_ToolbarMenu)
 
-	bpy.utils.unregister_module(__name__)
+	if hasattr(bpy.utils, "unregister_module"):
+		bpy.utils.unregister_module(__name__)
 
 if __name__ == "__main__":
 	register()

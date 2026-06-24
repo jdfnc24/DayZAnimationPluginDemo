@@ -2,6 +2,8 @@ import bpy
 from mathutils import *
 from .ImportTxo import *
 from .ImportTxa import *
+from ..modules.bpyHandler import registerClasses, registerMenus, unregisterClasses, unregisterMenus
+
 
 class DZAT_MT_ImportMenu(bpy.types.Menu):
 	bl_label = 'Import'
@@ -28,18 +30,14 @@ def register():
 	bpy.utils.register_class(DZAT_MT_ImportMenu)
 	bpy.types.DZAT_MT_ToolbarMenu.append(DZAT_ImportMenu)
 
-	for cls in classes:
-		bpy.utils.register_class(cls)
+	registerClasses(classes)
 
-	for menu in menus:
-		bpy.types.DZAT_MT_ImportMenu.append(menu)
+	registerMenus(menus, 'DZAT_MT_ImportMenu')
 		
 def unregister():
-	for menu in menus:
-		bpy.types.DZAT_MT_ImportMenu.remove(menu)
+	unregisterMenus(menus, 'DZAT_MT_ImportMenu')
 
-	for cls in classes:
-		bpy.utils.unregister_class(cls)
+	unregisterClasses(classes)
 		
 	bpy.types.DZAT_MT_ToolbarMenu.remove(DZAT_ImportMenu)
 	bpy.utils.unregister_class(DZAT_MT_ImportMenu)

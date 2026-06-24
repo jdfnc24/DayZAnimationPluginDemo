@@ -81,7 +81,6 @@ class LIST_OT_EventManagerRemoveItem(Operator):
 		return{'FINISHED'}
 
 class LIST_OT_EventManagerLoad(Operator):
-	'''Make sure an armature is selected (or in pose mode), and there is an active animation action'''
 
 	bl_idname = "eventmanager.load"
 	bl_label = "Load Events"
@@ -120,7 +119,6 @@ class LIST_OT_EventManagerLoad(Operator):
 		return{'FINISHED'}
 
 class LIST_OT_EventManagerSave(Operator):
-	'''Make sure an armature is selected (or in pose mode), and there is an active animation action\nNote: Saving an empty list will clear all events'''
 
 	bl_idname = "eventmanager.save"
 	bl_label = "Save Events"

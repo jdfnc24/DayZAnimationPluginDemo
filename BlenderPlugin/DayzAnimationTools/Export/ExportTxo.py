@@ -1,14 +1,15 @@
 import bpy
-import bpy_types
 import bmesh
 from mathutils import *
-from bpy_extras.wm_utils.progress_report import ProgressReport, ProgressReportSubstep
+from bpy_extras.wm_utils.progress_report import ProgressReport
 from bpy_extras.io_utils import ExportHelper
 from bpy.props import *
 import os
 import string
 import time
 from DayzAnimationTools.Types.Txo import *
+from ..modules.bpyHandler import getOperator, setLayoutProps, getLayout
+
 
 blender_version = bpy.app.version
 
@@ -51,20 +52,12 @@ class TXO_PT_Export_Include(bpy.types.Panel):
 
 	@classmethod
 	def poll(cls, context):
-		sfile = context.space_data
-		operator = sfile.active_operator
-		return operator.bl_idname == "EXPORT_SCENE_OT_txo"
+		return getOperator(context).bl_idname == "EXPORT_SCENE_OT_txo"
 
 	def draw(self, context):
-		layout = self.layout
-		layout.use_property_split = True
-		layout.use_property_decorate = False
+		layout = getLayout(self)
 
-		sfile = context.space_data
-		operator = sfile.active_operator
-
-		layout.prop(operator, "bExportSelectionOnly")
-		layout.prop(operator, "bExportShowingOnly")
+		setLayoutProps(layout, getOperator(context), ["bExportSelectionOnly", "bExportShowingOnly"])
 
 class TXO_PT_Export_Transform(bpy.types.Panel):
 	bl_space_type = 'FILE_BROWSER'
@@ -74,19 +67,11 @@ class TXO_PT_Export_Transform(bpy.types.Panel):
 
 	@classmethod
 	def poll(cls, context):
-		sfile = context.space_data
-		operator = sfile.active_operator
-		return operator.bl_idname == "EXPORT_SCENE_OT_txo"
+		return getOperator(context).bl_idname == "EXPORT_SCENE_OT_txo"
 
 	def draw(self, context):
-		layout = self.layout
-		layout.use_property_split = True
-		layout.use_property_decorate = False
-
-		sfile = context.space_data
-		operator = sfile.active_operator
-
-		layout.prop(operator, "fUnitScale")
+		layout = getLayout(self)
+		layout.prop(getOperator(context), "fUnitScale")
 
 class TXO_PT_Export_Armature(bpy.types.Panel):
 	bl_space_type = 'FILE_BROWSER'
@@ -96,25 +81,19 @@ class TXO_PT_Export_Armature(bpy.types.Panel):
 
 	@classmethod
 	def poll(cls, context):
-		sfile = context.space_data
-		operator = sfile.active_operator
-		return operator.bl_idname == "EXPORT_SCENE_OT_txo"
+		return getOperator(context).bl_idname == "EXPORT_SCENE_OT_txo"
 
 	def draw(self, context):
-		layout = self.layout
-		layout.use_property_split = True
-		layout.use_property_decorate = False
+		layout = getLayout(self)
 
-		sfile = context.space_data
-		operator = sfile.active_operator
+		operator = getOperator(context)
 
-		layout.prop(operator, "bEnsureEntityPosition")
-		layout.prop(operator, "bAutoCreateHeadLookBone")
+		setLayoutProps(layout, operator, ["bEnsureEntityPosition", "bAutoCreateHeadLookBone"])
+		
 		sub = layout.column()
 		sub.enabled = operator.bAutoCreateHeadLookBone
-		sub.prop(operator, "headLookBoneName")
-		sub.prop(operator, "headLookBoneParentName")
-		sub.prop(operator, "headLookOffset")
+		
+		setLayoutProps(sub, operator, ["headLookBoneName", "headLookBoneParentName", "headLookOffset"])
 
 
 def ExportTxoMenu(self, context):
@@ -203,11 +182,7 @@ class ExportTxoOperator(bpy.types.Operator, ExportHelper):
 	def poll(self, context):
 		return True
 
-def ShouldExportBone(poseBone:bpy_types.Bone) -> bool:
-	'''
-		Conditions that determine whether
-		or not to skip exporting this bone
-	'''
+def ShouldExportBone(poseBone:bpy.types.Bone) -> bool:
 
 	if poseBone.name.lower().endswith('ik_helper'):
 		return False
@@ -217,7 +192,7 @@ def ShouldExportBone(poseBone:bpy_types.Bone) -> bool:
 	
 	return True
 
-def GetBoneLocation(bone:bpy_types.Bone) -> FVector:
+def GetBoneLocation(bone:bpy.types.Bone) -> FVector:
 	mtxFix = Matrix(((0,1,0,0), (-1,0,0,0), (0,0,1,0), (0,0,0,1)))
 	mtxFinal = bone.matrix_local @ mtxFix.inverted()
 
@@ -229,7 +204,7 @@ def GetBoneLocation(bone:bpy_types.Bone) -> FVector:
 	return FVector(vec.x, vec.y, vec.z)
 
 
-def GetBoneRotation(bone:bpy_types.Bone) -> FMatrix3:
+def GetBoneRotation(bone:bpy.types.Bone) -> FMatrix3:
 	mtxFix = Matrix(((0,1,0,0), (-1,0,0,0), (0,0,1,0), (0,0,0,1)))
 	mtxFinal = bone.matrix_local @ mtxFix.inverted()
 
@@ -318,7 +293,7 @@ def export_action(self, context, progress, exportSettings:TxoExportSettings = Tx
 			if bone.name.lower() == exportSettings.headLookBoneName:
 				pinLookatBone = bone
 
-		def RecurseExportBone(parentBone:bpy_types.Bone, parentTxoBone:TxoBone):
+		def RecurseExportBone(parentBone:bpy.types.Bone, parentTxoBone:TxoBone):
 			if parentBone.parent == None:
 				parentTxoBone.keyframe.offset = GetBoneLocation(parentBone)
 				parentTxoBone.keyframe.rotMatrix = GetBoneRotation(parentBone)

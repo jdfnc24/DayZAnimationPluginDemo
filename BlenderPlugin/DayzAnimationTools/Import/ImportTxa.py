@@ -6,6 +6,7 @@ from bpy.props import *
 import os
 import time
 from DayzAnimationTools.Types.Txa import *
+from ..modules.bpyHandler import getOperator, setLayoutProps, getLayout
 
 class TXA_PT_Import_Include(bpy.types.Panel):
 	bl_space_type = 'FILE_BROWSER'
@@ -15,21 +16,13 @@ class TXA_PT_Import_Include(bpy.types.Panel):
 
 	@classmethod
 	def poll(cls, context):
-		sfile = context.space_data
-		operator = sfile.active_operator
-		return operator.bl_idname == "IMPORT_SCENE_OT_txa"
+		return getOperator(context).bl_idname == "IMPORT_SCENE_OT_txa"
 
 	def draw(self, context):
-		layout = self.layout
-		layout.use_property_split = True
-		layout.use_property_decorate = False
+		layout = getLayout(self)
 
-		sfile = context.space_data
-		operator = sfile.active_operator
+		setLayoutProps(layout, getOperator(context), ["bImportTranslationKeys", "bImportRotationKeys", "bImportScaleKeys"])
 
-		layout.prop(operator, "bImportTranslationKeys")
-		layout.prop(operator, "bImportRotationKeys")
-		layout.prop(operator, "bImportScaleKeys")
 
 class TXA_PT_Import_Transform(bpy.types.Panel):
 	bl_space_type = 'FILE_BROWSER'
@@ -39,19 +32,12 @@ class TXA_PT_Import_Transform(bpy.types.Panel):
 
 	@classmethod
 	def poll(cls, context):
-		sfile = context.space_data
-		operator = sfile.active_operator
-		return operator.bl_idname == "IMPORT_SCENE_OT_txa"
+		return getOperator(context).bl_idname == "IMPORT_SCENE_OT_txa"
 
 	def draw(self, context):
-		layout = self.layout
-		layout.use_property_split = True
-		layout.use_property_decorate = False
+		layout = getLayout(self)
 
-		sfile = context.space_data
-		operator = sfile.active_operator
-
-		layout.prop(operator, "fUnitScale")
+		layout.prop(getOperator(context), "fUnitScale")
 
 def ImportTxaMenu(self, context):
 	self.layout.operator(ImportTxaOperator.bl_idname, text='DayZ Animation (.txa)', icon='ARMATURE_DATA')
@@ -206,6 +192,9 @@ def load(self, context, importSettings:TxaImportSettings = TxaImportSettings()):
 						print("[DayzAnimationTools]: Warning - Dupe bone name conflict for '%s'\n" % bone.name)
 					blBones[name] = bone
 
+				# Store fcurves for later access in the LeftHandOrigin hack
+				fcurves_dict = {}  # data_path + index -> fcurve
+				
 				for txaBoneName, txaBoneKeyframes in boneKeyframesFlattened.items():
 					if txaBoneName.lower() not in blBones:
 						if txaBoneName.lower() not in ['scene_root', 'lefthandiktarget', 'leftforearmdirection', 'rightforearmdirection']: # bones to skip silently
@@ -235,22 +224,25 @@ def load(self, context, importSettings:TxaImportSettings = TxaImportSettings()):
 
 						t_fcurves, q_fcurves, s_fcurves = None, None, None
 						if len(transKeys) and importSettings.bImportTranslationKeys:
-							t_fcurves = generate_fcurves(action.fcurves, bone.name, 'location', 3)
+							t_fcurves = generate_fcurves_bl51(action, ob, bone.name, 'location', 3)
 							for axis, fcurve in enumerate(t_fcurves):
 								fcurve.color_mode = 'AUTO_RGB'
 								fcurve.keyframe_points.add(len(transKeys))
+								fcurves_dict[f'pose.bones["{bone.name}"].location:{axis}'] = fcurve
 
 						if len(rotKeys) and importSettings.bImportRotationKeys:
-							q_fcurves = generate_fcurves(action.fcurves, bone.name, 'rotation_quaternion', 4)
+							q_fcurves = generate_fcurves_bl51(action, ob, bone.name, 'rotation_quaternion', 4)
 							for axis, fcurve in enumerate(q_fcurves):
 								fcurve.color_mode = 'AUTO_YRGB'
 								fcurve.keyframe_points.add(len(rotKeys))
+								fcurves_dict[f'pose.bones["{bone.name}"].rotation_quaternion:{axis}'] = fcurve
 
 						if len(scaleKeys) and importSettings.bImportScaleKeys:
-							s_fcurves = generate_fcurves(action.fcurves, bone.name, 'scale', 3)
+							s_fcurves = generate_fcurves_bl51(action, ob, bone.name, 'scale', 3)
 							for axis, fcurve in enumerate(s_fcurves):
 								fcurve.color_mode = 'AUTO_RGB'
 								fcurve.keyframe_points.add(len(scaleKeys))
+								fcurves_dict[f'pose.bones["{bone.name}"].scale:{axis}'] = fcurve
 
 						for frame in range(txaAnimation.numFrames):
 
@@ -343,14 +335,17 @@ def load(self, context, importSettings:TxaImportSettings = TxaImportSettings()):
 							newLocation = bone.location.copy()
 
 							for axis in range(3):
-								fcurve = action.fcurves.find(data_path=f'pose.bones["{bone.name}"].location', index=axis)
-								for kf in fcurve.keyframe_points:
-									if kf.co.x == 0:
-										kf.co.y = newLocation[axis]
-									elif kf.co.x == 1:
-										kf.co.y = newLocation[axis]
-										break
-								fcurve.update()
+								# Get fcurve from our tracking dictionary
+								fcurve_key = f'pose.bones["{bone.name}"].location:{axis}'
+								if fcurve_key in fcurves_dict:
+									fcurve = fcurves_dict[fcurve_key]
+									for kf in fcurve.keyframe_points:
+										if kf.co.x == 0:
+											kf.co.y = newLocation[axis]
+										elif kf.co.x == 1:
+											kf.co.y = newLocation[axis]
+											break
+									fcurve.update()
 							break
 
 				# Re-enable constraints
@@ -375,15 +370,23 @@ def load(self, context, importSettings:TxaImportSettings = TxaImportSettings()):
 		progress.leave_substeps("Finished!")
 
 
+def generate_fcurves_bl51(action, armature_obj, tag_name, _type, count):
+
+	fcurves = []
+	for index in range(count):
+		# Create fcurve using the new API - Blender 5.1 handles slot management internally
+		fcurve = action.fcurve_ensure_for_datablock(
+			armature_obj,
+			f'pose.bones["{tag_name}"].{_type}',
+			index=index,
+			group_name=tag_name
+		)
+		fcurves.append(fcurve)
+	
+	return fcurves
+
+
 def generate_fcurves(action_fcurves, tag_name, _type, count):
-	'''
-		'tag_name': The name of the pose bone to generate fcurves for
-		'_type': The type of fcurve to add
-				ex: 'location', 'rotation_quaternion', 'scale'
-		'count': Number of fcurves to generate (should match up with the
-				 number of channels for a given fcurve type)
-		Returns a list of the generated fcurves
-	'''
 	return [action_fcurves.new(data_path='pose.bones["%s"].%s' %
 							   (tag_name, _type),
 							   index=index,
